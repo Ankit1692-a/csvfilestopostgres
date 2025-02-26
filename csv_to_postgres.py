@@ -112,3 +112,4 @@ def monitor_folder():
 
 if __name__ == "__main__":
     monitor_folder()
+# Insert data while avoiding duplicates ankit
