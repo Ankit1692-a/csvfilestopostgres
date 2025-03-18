@@ -9,10 +9,22 @@ DB_HOST = "localhost"
 DB_PORT = "5432"
 DB_NAME = "anki1"
 DB_USER = "postgres"
-DB_PASS = "Ankit@1692"
+DB_PASS = "ankit@1692"
 
-# Folder to monitor
-FOLDER_PATH = r"C:\Users\z0052w0z\Desktop\csvfiles"
+# Ask user for the folder path
+FOLDER_PATH = input("Enter the path to the folder containing CSV files: ")
+if not os.path.exists(FOLDER_PATH):
+    print("Invalid path. Please check and run the script again.")
+    exit()
+
+# Ask user for the time interval for monitoring
+try:
+    TIME_INTERVAL = int(input("Enter the time interval (in seconds) for checking the folder: "))
+    if TIME_INTERVAL <= 0:
+        raise ValueError
+except ValueError:
+    print("Invalid input. Please enter a positive integer.")
+    exit()
 
 # Store file modification times
 file_timestamps = {}
@@ -108,8 +120,8 @@ def monitor_folder():
                     file_timestamps[file] = modified_time
             conn.close()
         
-        time.sleep(20)
+        print(f"Waiting {TIME_INTERVAL} seconds before next check...")
+        time.sleep(TIME_INTERVAL)
 
 if __name__ == "__main__":
     monitor_folder()
-# Insert data while avoiding duplicates ankit
